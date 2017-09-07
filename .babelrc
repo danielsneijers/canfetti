@@ -1,0 +1,26 @@
+{
+  "presets": ["env"],
+  "env": {
+    "development": {
+      "presets": [
+        [
+          "env",
+          {
+            "modules": false,
+            "targets": { "browsers": ["last 2 versions", "> 5%"] }
+          }
+        ]
+      ]
+    },
+    "test": {
+      "presets": [
+        ["env", { "targets": { "browsers": ["last 2 versions", "> 5%"] } }]
+      ]
+    },
+    "production": {
+      "presets": [
+        ["env", { "targets": { "browsers": ["last 2 versions", "> 5%"] } }]
+      ]
+    }
+  }
+}

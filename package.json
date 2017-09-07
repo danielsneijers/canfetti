@@ -1,0 +1,31 @@
+{
+  "name": "Canfetti",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "run-s cleanup watch",
+    "lint": "tslint -c tslint.json 'src/**/*.ts' --fix",
+    "watch": "NODE_ENV=development webpack-dev-server --hot --inline",
+    "cleanup": "rm -rf ./dist && mkdir dist",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "linters": {
+      "*.ts": ["prettier --parser typescript --write 'src/**/*.ts'", "git add"]
+    }
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.2.3",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "html-webpack-plugin": "^2.30.1",
+    "npm-run-all": "^4.0.2",
+    "prettier": "^1.5.3",
+    "source-map-loader": "^0.2.1",
+    "tslint": "^5.7.0",
+    "typescript": "^2.5.2",
+    "webpack": "^3.5.5",
+    "webpack-dev-server": "^2.7.1"
+  }
+}
