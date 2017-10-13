@@ -1,41 +1,41 @@
-import Vector from "./Vector";
-
-const colors = [
-  "#fce18a",
-  "#ff726d",
-  "#b48def",
-  "#f4306d",
-  "#3aaab8",
-  "#38ba9e",
-  "#bb3d72",
-  "#006ded"
-];
+import { randomColor } from './utils/colors';
+import Vector from './models/Vector';
 
 export default class ConfettiParticle {
-  private ctx: CanvasRenderingContext2D;
   private sqWidth: number = 20;
   private sqHeight: number = 20;
   private rotationDegree: number = 0;
   private substract: boolean = true;
   private dt: number = 0.016;
-  private accelaration: number = 0;
   private color: string;
 
-  private position: Vector = new Vector(0, 10);
+  private position: Vector;
   private velocity: Vector = new Vector(0, 1);
   private gravity: Vector = new Vector(0, 9.8);
   private force: Vector = new Vector(0, 0);
 
-  constructor(ctx: CanvasRenderingContext2D, x: number = 0) {
+  constructor(
+    public ctx: CanvasRenderingContext2D,
+    x: number = 10,
+    y: number = 10,
+    velocity?: Vector,
+  ) {
     const r = Math.random() * Math.PI * 2;
-    const index = Math.floor(Math.random() * 8);
-    this.ctx = ctx;
-    this.position.x = x;
-    this.color = colors[index];
-    this.velocity = new Vector(
-      Math.sin(r) * Math.random() * 500,
-      Math.cos(r) * Math.random() * 500
-    );
+    this.position = new Vector(x, y);
+    this.color = randomColor();
+
+    if (velocity) {
+      this.velocity = velocity;
+    } else {
+      this.velocity = new Vector(
+        Math.sin(r) * Math.random() * 500,
+        Math.cos(r) * Math.random() * 500,
+      );
+    }
+  }
+
+  get inViewport() {
+    return this.position.y < this.ctx.canvas.height / 2;
   }
 
   private get rotation(): number {
@@ -43,6 +43,10 @@ export default class ConfettiParticle {
   }
 
   public draw(): void {
+    if (!this.inViewport) {
+      return;
+    }
+
     const { translateX, translateY } = this.updatePosition();
 
     this.ctx.save();
@@ -56,7 +60,7 @@ export default class ConfettiParticle {
       this.position.x,
       this.position.y,
       this.sqWidth,
-      this.sqHeight
+      this.sqHeight,
     );
 
     this.ctx.restore();
@@ -65,6 +69,7 @@ export default class ConfettiParticle {
   private updatePosition(): { translateX: number; translateY: number } {
     const forceX = this.force.x + this.gravity.x;
     const forceY = this.force.y + this.gravity.y;
+    const increment = Math.floor(Math.random() * 5);
 
     this.force.x = 0;
     this.force.y = 0;
@@ -75,13 +80,11 @@ export default class ConfettiParticle {
     this.position.y += this.velocity.y * this.dt;
     this.velocity.multiply(0.99);
 
-    this.rotationDegree = this.rotationDegree += Math.random() * 3;
-
-    const increment = Math.random() * 2;
+    this.rotationDegree = this.rotationDegree += increment;
 
     this.sqWidth = this.substract
-      ? this.sqWidth - increment * 2
-      : this.sqWidth + increment * 2;
+      ? this.sqWidth - increment
+      : this.sqWidth + increment;
 
     if (this.sqWidth <= -20 || this.sqWidth >= 20) {
       this.substract = !this.substract;
@@ -89,7 +92,7 @@ export default class ConfettiParticle {
 
     return {
       translateX: this.sqWidth / 2 + this.position.x,
-      translateY: this.sqHeight / 2 + this.position.y
+      translateY: this.sqHeight / 2 + this.position.y,
     };
   }
 }
