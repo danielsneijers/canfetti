@@ -10,7 +10,7 @@ export default class BurstEmitter extends BaseEmitter {
     }
   }
 
-  public drawConfetti() {
-    super.drawConfetti();
+  public stopDrawing () {
+    this.shouldRender = true;
   }
 }

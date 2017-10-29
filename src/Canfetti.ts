@@ -27,41 +27,47 @@ export default class Canfetti {
     this.ctx.scale(pixelRatio, pixelRatio);
   }
 
-  public initStream = () => {
+  public startStream = () => {
     this.emitters.push(new StreamEmitter(this.ctx));
+    
+    if (!this.isActive) {
+      this.isActive = true;
+      this.render();    
+    }
 
     return this;
   }
 
   public initBurst = () => {
     window.addEventListener('click', this.addBurstEmitter);    
+    
+    if (!this.isActive) {
+      this.isActive = true;
+      this.render();    
+    }
 
     return this;
   }
 
-  public start = () => {
-    console.log(this.isActive)
-    if (!this.isActive) {
-      this.isActive = true;
-      this.emitters.forEach(emitter => emitter.startDrawing());    
-      this.render();
-    }
-    console.log(this.isActive)
-  }
-
-  public stop = () => {
-    if (this.isActive) {
-      this.isActive = false;
-      this.emitters.forEach(emitter => emitter.stopDrawing());
-    }
+  public stopStream = () => {
+    this.emitters.forEach(emitter => emitter.stopDrawing());
   }
 
   private addBurstEmitter = ({ clientX, clientY }: MouseEvent) => {
     this.emitters.push(new BurstEmitter(this.ctx, clientX, clientY));
+
+    if (!this.isActive) {
+      this.isActive = true;
+      this.render();    
+    }
   };
 
   private render = () => {
-    if (!this.emittersDoneRendering) {
+    if (this.emittersDoneRendering) {
+      this.isActive = false;
+    }
+
+    if (this.emitters.length) {
       const { width, height } = this.canvasSize;
     
       this.ctx.clearRect(0, 0, width, height);

@@ -7,7 +7,9 @@ export default class BaseEmitter {
   public shouldRender: boolean = true;
   
   public get isDoneRendering() {
-    return this.particlesAmount === this.invisibleParticles;
+    return this.particlesArray.length ?
+      this.particlesArray.length === this.invisibleParticles :
+      false;
   }
 
   public stopDrawing () {
@@ -19,13 +21,20 @@ export default class BaseEmitter {
   }
 
   public drawConfetti() {
-    this.invisibleParticles = 0;
-
-    if (this.shouldRender && !this.isDoneRendering) {
-      this.particlesArray.forEach(
-        (particle, i) =>
-          particle.inViewport ? particle.draw() : (this.invisibleParticles += 1),
-      );
+    if (this.isDoneRendering) {
+      this.particlesArray = [];
+      return;
     }
+
+    this.invisibleParticles = 0;    
+    this.particlesArray.forEach(this.drawParticleWhenInViewport);
+  }
+
+  private drawParticleWhenInViewport = (particle: ConfettiParticle) => {
+    if (!particle.inViewport) {
+      this.invisibleParticles += 1;
+    }
+
+    particle.draw();
   }
 }

@@ -1,18 +1,22 @@
 import Canfetti from '../src/Canfetti';
 
 const confetti = new Canfetti();
-
-confetti.initBurst();
-
 const startButton = document.getElementById('startButton');
 const stopButton = document.getElementById('stopButton');
 
-startButton!.addEventListener('click', (e) => {
+confetti.initBurst();
 
-  confetti.start();
+startButton!.addEventListener('click', (e) => {
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  e.stopPropagation();
+
+  confetti.startStream();
 });
 
 stopButton!.addEventListener('click', (e) => {
-
-  confetti.stop();
+  e.preventDefault();
+  e.stopImmediatePropagation();
+  e.stopPropagation();
+  confetti.stopStream();
 });

@@ -12,6 +12,8 @@ export default class StreamEmitter extends BaseEmitter {
   }
 
   public setupConfetti () {
+    this.particlesArray = [];
+
     for (let i = 0; i < this.particlesAmount / 2; i += 1) {
       this.particlesArray.push(
         new ConfettiParticle(this.ctx, this.randomCenterX, -10),
@@ -26,12 +28,18 @@ export default class StreamEmitter extends BaseEmitter {
       this.setupConfetti();      
     }
 
-    for (let i = 0; i < this.particlesAmount / 60; i += 1){
+    if (this.shouldRender) {
+      this.addNewParticlesToStream();
+    }
+
+    super.drawConfetti();
+  }
+
+  private addNewParticlesToStream = () => {
+    for (let i = 0; i < this.particlesAmount / 60; i += 1) {
       this.particlesArray.push(
         new ConfettiParticle(this.ctx, this.randomCenterX, -10),
       );
     }
-
-    super.drawConfetti();
   }
 }
