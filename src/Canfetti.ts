@@ -11,12 +11,14 @@ export default class Canfetti {
   constructor({ canvasId = 'root' }: { canvasId?: string } = {}) {
     this.canvas = document.getElementById(canvasId) as HTMLCanvasElement;
     this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
+
     this.setCanvasSize();
+    window.addEventListener('resize', this.setCanvasSize);
 
     return this;
   }
 
-  public setCanvasSize() {
+  public setCanvasSize = () => {
     const pixelRatio = window.devicePixelRatio;
     const width = window.innerWidth * pixelRatio;
     const height = window.innerHeight * pixelRatio;
