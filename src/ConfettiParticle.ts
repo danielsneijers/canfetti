@@ -8,41 +8,37 @@ export default class ConfettiParticle {
   private substract: boolean = true;
   private dt: number = 0.016;
   private color: string;
+  private ctx: CanvasRenderingContext2D;
 
   private position: Vector;
   private velocity: Vector = new Vector(0, 1);
   private gravity: Vector = new Vector(0, 9.8);
-  private force: Vector = new Vector(0, 0);
 
   constructor(
-    public ctx: CanvasRenderingContext2D,
-    x: number = 10,
-    y: number = 10,
-    velocity?: Vector,
+    ctx: CanvasRenderingContext2D,
+    x: number = 0,
+    y: number = 0,
   ) {
     const r = Math.random() * Math.PI * 2;
+
+    this.ctx = ctx;
     this.position = new Vector(x, y);
     this.color = randomColor();
-
-    if (velocity) {
-      this.velocity = velocity;
-    } else {
-      this.velocity = new Vector(
-        Math.sin(r) * Math.random() * 500,
-        Math.cos(r) * Math.random() * 500,
-      );
-    }
+    this.velocity = new Vector(
+      Math.sin(r) * Math.random() * 500,
+      Math.cos(r) * Math.random() * 500,
+    );
   }
 
   get inViewport() {
     return this.position.y < this.ctx.canvas.height / 2;
   }
 
-  private get rotation(): number {
+  private get rotation() {
     return this.rotationDegree * Math.PI / 180;
   }
 
-  public draw(): void {
+  public draw() {
     if (!this.inViewport) {
       return;
     }
@@ -66,25 +62,22 @@ export default class ConfettiParticle {
     this.ctx.restore();
   }
 
-  private updatePosition(): { translateX: number; translateY: number } {
-    const forceX = this.force.x + this.gravity.x;
-    const forceY = this.force.y + this.gravity.y;
-    const increment = Math.floor(Math.random() * 5);
+  private updatePosition() {
+    const randomIncrement = Math.floor(Math.random() * 5);
 
-    this.force.x = 0;
-    this.force.y = 0;
+    this.velocity.add(this.gravity);
+    this.position.add(new Vector(
+      this.velocity.x * this.dt,
+      this.velocity.y * this.dt
+    ));
 
-    this.velocity.x += forceX;
-    this.velocity.y += forceY;
-    this.position.x += this.velocity.x * this.dt;
-    this.position.y += this.velocity.y * this.dt;
     this.velocity.multiply(0.99);
 
-    this.rotationDegree = this.rotationDegree += increment;
+    this.rotationDegree += randomIncrement;
 
     this.sqWidth = this.substract
-      ? this.sqWidth - increment
-      : this.sqWidth + increment;
+      ? this.sqWidth - randomIncrement
+      : this.sqWidth + randomIncrement;
 
     if (this.sqWidth <= -20 || this.sqWidth >= 20) {
       this.substract = !this.substract;
