@@ -19,5 +19,6 @@
     "emitDecoratorMetadata": true,
     "baseUrl": "./src"
   },
-  "include": ["./src/", "./demo/"]
+  "include": ["./src/", "./demo/"],
+  "files": ["typings/globals.d.ts"]
 }

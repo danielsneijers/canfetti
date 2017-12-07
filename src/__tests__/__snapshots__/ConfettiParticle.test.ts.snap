@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConfettiParticle constructor initiates with ctx and default values 1`] = `
+ConfettiParticle {
+  "color": "#abcdef",
+  "ctx": Object {
+    "canvas": Object {
+      "scrollHeight": 100,
+    },
+    "fillRect": [Function],
+    "fillStyle": "#fff",
+    "restore": [Function],
+    "rotate": [Function],
+    "save": [Function],
+    "translate": [Function],
+  },
+  "deltaTime": 0.016,
+  "gravity": Vector {
+    "x": 0,
+    "y": 9.8,
+  },
+  "position": Vector {
+    "x": 0,
+    "y": 0,
+  },
+  "rotationDegree": 0,
+  "sqHeight": 20,
+  "sqWidth": 20,
+  "substractWidth": true,
+  "velocity": Vector {
+    "x": -266.5292067987189,
+    "y": -187.9380952902847,
+  },
+}
+`;
