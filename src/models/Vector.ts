@@ -8,19 +8,19 @@ export default class Vector {
     return this;
   }
 
-  public add({ x, y }: Vector): Vector {
+  public add({ x, y }: Vector) {
     this.x += x;
     this.y += y;
     return this;
   }
 
-  public multiply(scalar: number): Vector {
+  public multiply(scalar: number) {
     this.x *= scalar;
     this.y *= scalar;
     return this;
   }
 
-  public asArray(): [number, number] {
+  public asArray() {
     return [this.x, this.y];
   }
 }

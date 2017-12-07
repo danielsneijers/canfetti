@@ -1,58 +1,49 @@
 import { randomColor } from './utils/colors';
+import {
+  degreeToRadian,
+  randomCircumference,
+  randomNumberBetween0andX,
+} from './utils/math';
 import Vector from './models/Vector';
 
 export default class ConfettiParticle {
   private sqWidth: number = 20;
   private sqHeight: number = 20;
   private rotationDegree: number = 0;
-  private substract: boolean = true;
-  private dt: number = 0.016;
+  private substractWidth: boolean = true;
+  private deltaTime: number = 0.016;
   private color: string;
+  private ctx: CanvasRenderingContext2D;
 
   private position: Vector;
   private velocity: Vector = new Vector(0, 1);
   private gravity: Vector = new Vector(0, 9.8);
-  private force: Vector = new Vector(0, 0);
 
-  constructor(
-    public ctx: CanvasRenderingContext2D,
-    x: number = 10,
-    y: number = 10,
-    velocity?: Vector,
-  ) {
-    const r = Math.random() * Math.PI * 2;
+  constructor(ctx: CanvasRenderingContext2D, x: number = 0, y: number = 0) {
+    this.ctx = ctx;
     this.position = new Vector(x, y);
     this.color = randomColor();
-
-    if (velocity) {
-      this.velocity = velocity;
-    } else {
-      this.velocity = new Vector(
-        Math.sin(r) * Math.random() * 500,
-        Math.cos(r) * Math.random() * 500,
-      );
-    }
+    this.velocity = new Vector(
+      Math.sin(randomCircumference()) * Math.random() * 500,
+      Math.cos(randomCircumference()) * Math.random() * 500,
+    );
   }
 
   get inViewport() {
-    return this.position.y < this.ctx.canvas.height / 2;
+    return this.position.y < this.ctx.canvas.scrollHeight;
   }
 
-  private get rotation(): number {
-    return this.rotationDegree * Math.PI / 180;
-  }
-
-  public draw(): void {
+  public draw() {
     if (!this.inViewport) {
       return;
     }
 
-    const { translateX, translateY } = this.updatePosition();
+    const { translateX, translateY } = this.updateParticle();
 
     this.ctx.save();
 
     this.ctx.translate(translateX, translateY);
-    this.ctx.rotate(this.rotation);
+    this.ctx.rotate(degreeToRadian(this.rotationDegree));
     this.ctx.translate(-translateX, -translateY);
 
     this.ctx.fillStyle = this.color;
@@ -66,33 +57,46 @@ export default class ConfettiParticle {
     this.ctx.restore();
   }
 
-  private updatePosition(): { translateX: number; translateY: number } {
-    const forceX = this.force.x + this.gravity.x;
-    const forceY = this.force.y + this.gravity.y;
-    const increment = Math.floor(Math.random() * 5);
+  private updateParticle() {
+    this.updateRotation(randomNumberBetween0andX(15));
+    this.updateSubtractWidth();
+    this.updateSqWidth();
 
-    this.force.x = 0;
-    this.force.y = 0;
+    return this.updatePosition();
+  }
 
-    this.velocity.x += forceX;
-    this.velocity.y += forceY;
-    this.position.x += this.velocity.x * this.dt;
-    this.position.y += this.velocity.y * this.dt;
-    this.velocity.multiply(0.99);
-
-    this.rotationDegree = this.rotationDegree += increment;
-
-    this.sqWidth = this.substract
-      ? this.sqWidth - increment
-      : this.sqWidth + increment;
-
-    if (this.sqWidth <= -20 || this.sqWidth >= 20) {
-      this.substract = !this.substract;
-    }
+  private updatePosition() {
+    this.velocity.add(this.gravity).multiply(0.99);
+    this.position.add(
+      new Vector(
+        this.velocity.x * this.deltaTime,
+        this.velocity.y * this.deltaTime,
+      ),
+    );
 
     return {
       translateX: this.sqWidth / 2 + this.position.x,
       translateY: this.sqHeight / 2 + this.position.y,
     };
+  }
+
+  private updateRotation(increment: number) {
+    this.rotationDegree += increment;
+  }
+
+  private updateSubtractWidth() {
+    if (this.sqWidth <= -20) {
+      this.substractWidth = false;
+    }
+
+    if (this.sqWidth >= 20) {
+      this.substractWidth = true;
+    }
+  }
+
+  private updateSqWidth() {
+    this.sqWidth = this.substractWidth
+      ? this.sqWidth - randomNumberBetween0andX(5)
+      : this.sqWidth + randomNumberBetween0andX(5);
   }
 }

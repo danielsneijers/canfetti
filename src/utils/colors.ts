@@ -9,7 +9,7 @@ export const colors = [
   '#006ded',
 ];
 
-export function randomColor(): string {
+export function randomColor() {
   const index = Math.floor(Math.random() * colors.length);
 
   return colors[index];

@@ -9,8 +9,4 @@ export default class BurstEmitter extends BaseEmitter {
       this.particlesArray.push(new ConfettiParticle(ctx, centerX, centerY));
     }
   }
-
-  public stopDrawing () {
-    this.shouldRender = true;
-  }
 }

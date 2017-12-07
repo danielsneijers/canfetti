@@ -6,7 +6,7 @@ const stopButton = document.getElementById('stopButton');
 
 confetti.initBurst();
 
-startButton!.addEventListener('click', (e) => {
+startButton!.addEventListener('click', e => {
   e.preventDefault();
   e.stopImmediatePropagation();
   e.stopPropagation();
@@ -14,7 +14,7 @@ startButton!.addEventListener('click', (e) => {
   confetti.startStream();
 });
 
-stopButton!.addEventListener('click', (e) => {
+stopButton!.addEventListener('click', e => {
   e.preventDefault();
   e.stopImmediatePropagation();
   e.stopPropagation();
