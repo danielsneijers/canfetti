@@ -11,7 +11,7 @@ const baseConfig = {
     publicPath: '/',
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.ts$/,
         loader: 'awesome-typescript-loader',
@@ -34,6 +34,7 @@ if (process.env.NODE_ENV === 'development') {
       'webpack/hot/only-dev-server',
       '../demo/index.ts',
     ],
+    mode: 'development',
     devtool: 'source-map',
     devServer: {
       hot: true,
@@ -57,14 +58,15 @@ if (process.env.NODE_ENV === 'development') {
 
 if (process.env.NODE_ENV === 'production') {
   module.exports = Object.assign(baseConfig, {
-    entry: '../demo/index.ts',
+    entry: '../src/Canfetti.ts',
+    mode: 'production',
     plugins: [
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify('production'),
-        },
-      }),
       new UglifyJSPlugin(),
     ],
+    output: {
+      path: resolve('./dist'),
+      filename: 'canfetti.js',
+      libraryTarget: 'commonjs2',
+    },
   });
 }
