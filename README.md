@@ -24,3 +24,5 @@ Coming soon
 - [ ] Add CI build scripts
 - [ ] Publish to npm
 - [ ] Test with local demo project
+- [ ] Flatten dependency tree if that has effect on bundle
+- [ ] Add some badges
