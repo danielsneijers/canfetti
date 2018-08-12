@@ -2,7 +2,7 @@
 import {
   degreeToRadian,
   randomCircumference,
-  randomNumberBetween0andX,
+  randomNumberBetween0andX
 } from '../math';
 
 describe('math', () => {
@@ -40,7 +40,7 @@ describe('math', () => {
         randomNumberBetween0andX(),
         randomNumberBetween0andX(),
         randomNumberBetween0andX(),
-        randomNumberBetween0andX(),
+        randomNumberBetween0andX()
       ];
 
       randomNumbers.forEach(int => {
@@ -55,7 +55,7 @@ describe('math', () => {
         randomNumberBetween0andX(5),
         randomNumberBetween0andX(5),
         randomNumberBetween0andX(5),
-        randomNumberBetween0andX(5),
+        randomNumberBetween0andX(5)
       ];
 
       randomNumbers.forEach(int => {

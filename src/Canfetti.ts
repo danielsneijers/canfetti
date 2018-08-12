@@ -1,7 +1,7 @@
 import BurstEmitter from './emitters/BurstEmitter';
 import StreamEmitter from './emitters/StreamEmitter';
 
-export default class Canfetti {
+class Canfetti {
   private canvas: HTMLCanvasElement;
   private canvasSize: { width: number; height: number };
   private ctx: CanvasRenderingContext2D;
@@ -81,7 +81,7 @@ export default class Canfetti {
 
   private drawEmitterParticles = (
     emitter: BurstEmitter | StreamEmitter,
-    index: number,
+    index: number
   ) => {
     if (emitter.isDoneRendering) {
       this.emitters.splice(index, 1);
@@ -94,3 +94,5 @@ export default class Canfetti {
     return this.emitters.every(emitter => emitter.isDoneRendering);
   }
 }
+
+export default Canfetti;
