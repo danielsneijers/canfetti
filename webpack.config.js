@@ -60,7 +60,6 @@ if (process.env.NODE_ENV === 'production') {
   module.exports = Object.assign(baseConfig, {
     entry: '../src/Canfetti.ts',
     mode: 'production',
-    plugins: [new UglifyJSPlugin()],
     output: {
       path: resolve('./dist'),
       filename: 'canfetti.js',
@@ -68,6 +67,18 @@ if (process.env.NODE_ENV === 'production') {
       umdNamedDefine: true,
       libraryExport: 'default',
       libraryTarget: 'umd'
+    },
+    optimization: {
+      minimizer: [
+        new UglifyJSPlugin({
+          sourceMap: false,
+          uglifyOptions: {
+            compress: {
+              inline: false
+            }
+          }
+        })
+      ]
     }
   });
 }
