@@ -11,8 +11,8 @@ const mockCtx = {
   fillRect: jest.fn(),
   restore: jest.fn(),
   canvas: {
-    scrollHeight: 100,
-  },
+    scrollHeight: 100
+  }
 } as any;
 
 describe('ConfettiParticle', () => {
@@ -24,7 +24,7 @@ describe('ConfettiParticle', () => {
   });
 
   afterAll(() => {
-    jest.clearAllMocks();
+    global.Math.random.mockRestore();
   });
 
   beforeEach(() => {
@@ -33,7 +33,7 @@ describe('ConfettiParticle', () => {
   });
 
   afterEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   describe('constructor', () => {

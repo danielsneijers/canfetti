@@ -10,8 +10,7 @@
     "watch": "NODE_ENV=development webpack-dev-server --hot --inline",
     "cleanup": "rm -rf ./dist && mkdir dist",
     "precommit": "lint-staged",
-    "test": "jest --coverage --no-cache",
-    "test:watch": "jest --watch"
+    "test": "jest"
   },
   "lint-staged": {
     "linters": {
