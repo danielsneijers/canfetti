@@ -18,5 +18,6 @@ stopButton!.addEventListener('click', e => {
   e.preventDefault();
   e.stopImmediatePropagation();
   e.stopPropagation();
+
   confetti.stopStream();
 });

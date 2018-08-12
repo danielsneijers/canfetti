@@ -7,12 +7,12 @@ ConfettiParticle {
     "canvas": Object {
       "scrollHeight": 100,
     },
-    "fillRect": [Function],
+    "fillRect": [MockFunction],
     "fillStyle": "#fff",
-    "restore": [Function],
-    "rotate": [Function],
-    "save": [Function],
-    "translate": [Function],
+    "restore": [MockFunction],
+    "rotate": [MockFunction],
+    "save": [MockFunction],
+    "translate": [MockFunction],
   },
   "deltaTime": 0.016,
   "gravity": Vector {

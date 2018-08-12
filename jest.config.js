@@ -1,7 +1,7 @@
 module.exports = {
   moduleFileExtensions: ['ts', 'js'],
   transform: {
-    '^.+\\.(ts|tsx)$': '<rootDir>/node_modules/ts-jest/preprocessor.js',
+    '^.+\\.tsx?$': 'ts-jest'
   },
-  testMatch: ['**/__tests__/*.(ts|js)'],
+  testMatch: ['**/__tests__/*.(ts|js)']
 };

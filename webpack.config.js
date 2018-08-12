@@ -8,7 +8,7 @@ const baseConfig = {
   output: {
     filename: 'bundle.js',
     path: resolve(__dirname, 'dist'),
-    publicPath: '/',
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -16,15 +16,15 @@ const baseConfig = {
         test: /\.ts$/,
         loader: 'awesome-typescript-loader',
         include: [resolve(__dirname, 'src'), resolve(__dirname, 'demo')],
-        exclude: /node-modules/,
+        exclude: /node-modules/
       },
-      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
-    ],
+      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' }
+    ]
   },
   resolve: {
     extensions: ['.js', '.ts'],
-    modules: ['node_modules'],
-  },
+    modules: ['node_modules']
+  }
 };
 
 if (process.env.NODE_ENV === 'development') {
@@ -32,7 +32,7 @@ if (process.env.NODE_ENV === 'development') {
     entry: [
       'webpack-dev-server/client?http://localhost:8080',
       'webpack/hot/only-dev-server',
-      '../demo/index.ts',
+      '../demo/index.ts'
     ],
     mode: 'development',
     devtool: 'source-map',
@@ -41,7 +41,7 @@ if (process.env.NODE_ENV === 'development') {
       contentBase: resolve(__dirname, 'dist'),
       publicPath: '/',
       historyApiFallback: true,
-      stats: { colors: true },
+      stats: { colors: true }
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
@@ -50,9 +50,9 @@ if (process.env.NODE_ENV === 'development') {
         title: 'Canfetti 🎊',
         template: '../demo/template.ejs',
         minify: { useShortDoctype: true },
-        hash: false,
-      }),
-    ],
+        hash: false
+      })
+    ]
   });
 }
 
@@ -60,13 +60,25 @@ if (process.env.NODE_ENV === 'production') {
   module.exports = Object.assign(baseConfig, {
     entry: '../src/Canfetti.ts',
     mode: 'production',
-    plugins: [
-      new UglifyJSPlugin(),
-    ],
     output: {
       path: resolve('./dist'),
       filename: 'canfetti.js',
-      libraryTarget: 'commonjs2',
+      library: 'Canfetti',
+      umdNamedDefine: true,
+      libraryExport: 'default',
+      libraryTarget: 'umd'
     },
+    optimization: {
+      minimizer: [
+        new UglifyJSPlugin({
+          sourceMap: false,
+          uglifyOptions: {
+            compress: {
+              inline: false
+            }
+          }
+        })
+      ]
+    }
   });
 }
