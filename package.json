@@ -4,11 +4,9 @@
   "main": "dist/canfetti.js",
   "license": "MIT",
   "scripts": {
-    "start": "run-s cleanup watch",
+    "start": "NODE_ENV=development webpack-dev-server --hot --inline -d",
     "build": "NODE_ENV=production webpack -p",
     "lint": "tslint -c tslint.json 'src/**/*.ts' --fix --project tsconfig.json",
-    "watch": "NODE_ENV=development webpack-dev-server --hot --inline",
-    "cleanup": "rm -rf ./dist && mkdir dist",
     "precommit": "lint-staged",
     "test": "jest"
   },
@@ -17,6 +15,7 @@
     "@babel/preset-env": "^7.0.0-rc.1",
     "@types/jest": "^23.3.1",
     "awesome-typescript-loader": "^5.2.0",
+    "clean-webpack-plugin": "^0.1.19",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^1.0.0-rc.13",
     "jest": "^23.5.0",

@@ -2,6 +2,7 @@ const { resolve } = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const baseConfig = {
   context: resolve(__dirname, 'src'),
@@ -24,7 +25,8 @@ const baseConfig = {
   resolve: {
     extensions: ['.js', '.ts'],
     modules: ['node_modules']
-  }
+  },
+  plugins: [new CleanWebpackPlugin('dist')]
 };
 
 if (process.env.NODE_ENV === 'development') {
@@ -43,16 +45,15 @@ if (process.env.NODE_ENV === 'development') {
       historyApiFallback: true,
       stats: { colors: true }
     },
-    plugins: [
+    plugins: baseConfig.plugins.concat([
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NamedModulesPlugin(),
       new HtmlWebpackPlugin({
         title: 'Canfetti 🎊',
         template: '../demo/template.ejs',
         minify: { useShortDoctype: true },
         hash: false
       })
-    ]
+    ])
   });
 }
 
