@@ -1,0 +1,9 @@
+{
+  "linters": {
+    "*.ts": [
+      "prettier --parser typescript --write 'src/**/*.ts'",
+      "yarn run lint",
+      "git add"
+    ]
+  }
+}
