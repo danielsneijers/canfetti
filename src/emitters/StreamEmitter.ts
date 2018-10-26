@@ -1,6 +1,5 @@
 import BaseEmitter from './BaseEmitter';
 import ConfettiParticle from '../ConfettiParticle';
-// import Vector from '../models/Vector';
 
 export default class StreamEmitter extends BaseEmitter {
   constructor(public ctx: CanvasRenderingContext2D) {
@@ -8,7 +7,7 @@ export default class StreamEmitter extends BaseEmitter {
 
     for (let i = 0; i < this.particlesAmount / 2; i += 1) {
       this.particlesArray.push(
-        new ConfettiParticle(this.ctx, this.randomCenterX, -10),
+        new ConfettiParticle(this.ctx, this.randomCenterX, -10)
       );
     }
   }
@@ -28,7 +27,7 @@ export default class StreamEmitter extends BaseEmitter {
   private addNewParticlesToStream = () => {
     for (let i = 0; i < this.particlesAmount / 60; i += 1) {
       this.particlesArray.push(
-        new ConfettiParticle(this.ctx, this.randomCenterX, -10),
+        new ConfettiParticle(this.ctx, this.randomCenterX, -10)
       );
     }
   };

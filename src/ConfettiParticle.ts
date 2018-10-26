@@ -2,7 +2,7 @@ import { randomColor } from './utils/colors';
 import {
   degreeToRadian,
   randomCircumference,
-  randomNumberBetween0andX,
+  randomNumberBetween0andX
 } from './utils/math';
 import Vector from './models/Vector';
 
@@ -25,7 +25,7 @@ export default class ConfettiParticle {
     this.color = randomColor();
     this.velocity = new Vector(
       Math.sin(randomCircumference()) * Math.random() * 500,
-      Math.cos(randomCircumference()) * Math.random() * 500,
+      Math.cos(randomCircumference()) * Math.random() * 500
     );
   }
 
@@ -34,27 +34,25 @@ export default class ConfettiParticle {
   }
 
   public draw() {
-    if (!this.inViewport) {
-      return;
+    if (this.inViewport) {
+      const { translateX, translateY } = this.updateParticle();
+
+      this.ctx.save();
+
+      this.ctx.translate(translateX, translateY);
+      this.ctx.rotate(degreeToRadian(this.rotationDegree));
+      this.ctx.translate(-translateX, -translateY);
+
+      this.ctx.fillStyle = this.color;
+      this.ctx.fillRect(
+        this.position.x,
+        this.position.y,
+        this.sqWidth,
+        this.sqHeight
+      );
+
+      this.ctx.restore();
     }
-
-    const { translateX, translateY } = this.updateParticle();
-
-    this.ctx.save();
-
-    this.ctx.translate(translateX, translateY);
-    this.ctx.rotate(degreeToRadian(this.rotationDegree));
-    this.ctx.translate(-translateX, -translateY);
-
-    this.ctx.fillStyle = this.color;
-    this.ctx.fillRect(
-      this.position.x,
-      this.position.y,
-      this.sqWidth,
-      this.sqHeight,
-    );
-
-    this.ctx.restore();
   }
 
   private updateParticle() {
@@ -66,17 +64,17 @@ export default class ConfettiParticle {
   }
 
   private updatePosition() {
-    this.velocity.add(this.gravity).multiply(0.99);
-    this.position.add(
-      new Vector(
-        this.velocity.x * this.deltaTime,
-        this.velocity.y * this.deltaTime,
-      ),
+    const nextPosition = new Vector(
+      this.velocity.x * this.deltaTime,
+      this.velocity.y * this.deltaTime
     );
+
+    this.velocity.add(this.gravity).multiply(0.99);
+    this.position.add(nextPosition);
 
     return {
       translateX: this.sqWidth / 2 + this.position.x,
-      translateY: this.sqHeight / 2 + this.position.y,
+      translateY: this.sqHeight / 2 + this.position.y
     };
   }
 

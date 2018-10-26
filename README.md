@@ -1,12 +1,12 @@
 # Canfetti 🎊
 
-For all your canvas rendered confetti needs.
+Celebrate more with this HTML5 canvas enabled confetti library 🎊
 
 ## Usage
 
 Coming soon
 
-## Api
+## Options
 
 Coming soon
 

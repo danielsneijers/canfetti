@@ -8,7 +8,7 @@ class Canfetti {
   private emitters: (BurstEmitter | StreamEmitter)[] = [];
   private isActive: boolean = false;
 
-  constructor({ canvasId = 'root' }: { canvasId?: string } = {}) {
+  constructor({ canvasId = 'canfetti' }: { canvasId?: string } = {}) {
     this.canvas = document.getElementById(canvasId) as HTMLCanvasElement;
     this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
 
@@ -65,7 +65,7 @@ class Canfetti {
   };
 
   private render = () => {
-    if (this.emittersDoneRendering) {
+    if (this.allEmittersDoneRendering) {
       this.isActive = false;
     }
 
@@ -90,7 +90,7 @@ class Canfetti {
     }
   };
 
-  private get emittersDoneRendering() {
+  private get allEmittersDoneRendering() {
     return this.emitters.every(emitter => emitter.isDoneRendering);
   }
 }
