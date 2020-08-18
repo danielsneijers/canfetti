@@ -74,7 +74,7 @@ if (process.env.NODE_ENV === 'development') {
 
 if (process.env.NODE_ENV === 'production') {
   module.exports = Object.assign(baseConfig, {
-    entry: '../src/Canfetti.ts',
+    entry: '../src/Canfetti.js',
     mode: 'production',
     output: {
       path: resolve('./dist'),
