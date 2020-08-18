@@ -1,26 +1,23 @@
 export default class Vector {
-  public x: number;
-  public y: number;
-
-  constructor(x: number, y: number) {
+  constructor(x, y) {
     this.x = x;
     this.y = y;
     return this;
   }
 
-  public add({ x, y }: Vector) {
+  add({ x, y }) {
     this.x += x;
     this.y += y;
     return this;
   }
 
-  public multiply(scalar: number) {
+  multiply(scalar) {
     this.x *= scalar;
     this.y *= scalar;
     return this;
   }
 
-  public asArray() {
+  asArray() {
     return [this.x, this.y];
   }
 }

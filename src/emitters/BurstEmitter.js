@@ -2,7 +2,7 @@ import BaseEmitter from './BaseEmitter';
 import ConfettiParticle from '../ConfettiParticle';
 
 export default class BurstEmitter extends BaseEmitter {
-  constructor(ctx: CanvasRenderingContext2D, centerX: number, centerY: number) {
+  constructor(ctx, centerX, centerY) {
     super();
 
     for (let i = 0; i < this.particlesAmount; i += 1) {

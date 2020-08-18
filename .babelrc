@@ -1,26 +1,36 @@
 {
-  "presets": ["env"],
+  "presets": ["@babel/preset-env"],
+  "plugins": ["@babel/plugin-proposal-class-properties"],
   "env": {
     "development": {
       "presets": [
         [
-          "env",
+          "@babel/preset-env",
           {
             "modules": false,
             "targets": { "browsers": ["last 2 versions", "> 5%"] }
           }
         ]
-      ]
+      ],
+      "plugins": ["@babel/plugin-proposal-class-properties"]
     },
     "test": {
       "presets": [
-        ["env", { "targets": { "browsers": ["last 2 versions", "> 5%"] } }]
-      ]
+        [
+          "@babel/preset-env",
+          { "targets": { "browsers": ["last 2 versions", "> 5%"] } }
+        ]
+      ],
+      "plugins": ["@babel/plugin-proposal-class-properties"]
     },
     "production": {
       "presets": [
-        ["env", { "targets": { "browsers": ["last 2 versions", "> 5%"] } }]
-      ]
+        [
+          "@babel/preset-env",
+          { "targets": { "browsers": ["last 2 versions", "> 5%"] } }
+        ]
+      ],
+      "plugins": ["@babel/plugin-proposal-class-properties"]
     }
   }
 }

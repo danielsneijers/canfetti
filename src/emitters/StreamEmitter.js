@@ -2,8 +2,10 @@ import BaseEmitter from './BaseEmitter';
 import ConfettiParticle from '../ConfettiParticle';
 
 export default class StreamEmitter extends BaseEmitter {
-  constructor(public ctx: CanvasRenderingContext2D) {
+  constructor(ctx) {
     super();
+
+    this.ctx = ctx;
 
     for (let i = 0; i < this.particlesAmount / 2; i += 1) {
       this.particlesArray.push(
@@ -12,11 +14,11 @@ export default class StreamEmitter extends BaseEmitter {
     }
   }
 
-  private get randomCenterX() {
+  get randomCenterX() {
     return Math.floor(Math.random() * this.ctx.canvas.width);
   }
 
-  public drawConfetti() {
+  drawConfetti() {
     if (this.shouldRender) {
       this.addNewParticlesToStream();
     }
@@ -24,7 +26,7 @@ export default class StreamEmitter extends BaseEmitter {
     super.drawConfetti();
   }
 
-  private addNewParticlesToStream = () => {
+  addNewParticlesToStream = () => {
     for (let i = 0; i < this.particlesAmount / 60; i += 1) {
       this.particlesArray.push(
         new ConfettiParticle(this.ctx, this.randomCenterX, -10)
