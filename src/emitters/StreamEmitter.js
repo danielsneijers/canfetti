@@ -9,7 +9,7 @@ export default class StreamEmitter extends BaseEmitter {
 
     for (let i = 0; i < this.particlesAmount / 2; i += 1) {
       this.particlesArray.push(
-        new ConfettiParticle(this.ctx, this.randomCenterX, -10)
+        new ConfettiParticle(this.ctx, this.randomCenterX, -10),
       );
     }
   }
@@ -29,7 +29,7 @@ export default class StreamEmitter extends BaseEmitter {
   addNewParticlesToStream = () => {
     for (let i = 0; i < this.particlesAmount / 60; i += 1) {
       this.particlesArray.push(
-        new ConfettiParticle(this.ctx, this.randomCenterX, -10)
+        new ConfettiParticle(this.ctx, this.randomCenterX, -10),
       );
     }
   };

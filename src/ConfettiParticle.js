@@ -20,7 +20,7 @@ export default class ConfettiParticle {
     this.position = new Vector(x, y);
     this.velocity = new Vector(
       Math.sin(randomCircumference()) * Math.random() * 500,
-      Math.cos(randomCircumference()) * Math.random() * 500
+      Math.cos(randomCircumference()) * Math.random() * 500,
     );
   }
 
@@ -43,7 +43,7 @@ export default class ConfettiParticle {
         this.position.x,
         this.position.y,
         this.sqWidth,
-        this.sqHeight
+        this.sqHeight,
       );
 
       this.ctx.restore();
@@ -61,7 +61,7 @@ export default class ConfettiParticle {
   updatePosition() {
     const nextPosition = new Vector(
       this.velocity.x * this.deltaTime,
-      this.velocity.y * this.deltaTime
+      this.velocity.y * this.deltaTime,
     );
 
     this.velocity.add(this.gravity).multiply(0.99);
