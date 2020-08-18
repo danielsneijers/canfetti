@@ -48,6 +48,17 @@ class Canfetti {
     return this;
   };
 
+  stopBurst = () => {
+    window.removeEventListener('click', this.addBurstEmitter);
+
+    if (!this.isActive) {
+      this.isActive = true;
+      this.render();
+    }
+
+    return this;
+  };
+
   stopStream = () => {
     this.emitters.forEach((emitter) => emitter.stopDrawing());
   };
