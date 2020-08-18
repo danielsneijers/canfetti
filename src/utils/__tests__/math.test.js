@@ -2,7 +2,7 @@
 import {
   degreeToRadian,
   randomCircumference,
-  randomNumberBetween0andX
+  randomNumberBetween0andX,
 } from '../math';
 
 describe('math', () => {
@@ -15,7 +15,7 @@ describe('math', () => {
   });
 
   describe('randomCircumference', () => {
-    let spy: any;
+    let spy;
 
     beforeAll(() => {
       spy = jest
@@ -40,10 +40,10 @@ describe('math', () => {
         randomNumberBetween0andX(),
         randomNumberBetween0andX(),
         randomNumberBetween0andX(),
-        randomNumberBetween0andX()
+        randomNumberBetween0andX(),
       ];
 
-      randomNumbers.forEach(int => {
+      randomNumbers.forEach((int) => {
         expect(int).toBeGreaterThanOrEqual(0);
         expect(int).toBeLessThanOrEqual(1);
       });
@@ -55,10 +55,10 @@ describe('math', () => {
         randomNumberBetween0andX(5),
         randomNumberBetween0andX(5),
         randomNumberBetween0andX(5),
-        randomNumberBetween0andX(5)
+        randomNumberBetween0andX(5),
       ];
 
-      randomNumbers.forEach(int => {
+      randomNumbers.forEach((int) => {
         expect(int).toBeGreaterThanOrEqual(0);
         expect(int).toBeLessThanOrEqual(5);
       });

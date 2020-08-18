@@ -11,7 +11,7 @@ const mockCtx = {
   canvas: {
     scrollHeight: 100,
   },
-} as any;
+};
 
 describe('BurstEmitter', () => {
   it('instantly adds 200 particles', () => {

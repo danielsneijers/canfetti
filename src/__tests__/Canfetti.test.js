@@ -1,4 +1,3 @@
-// tslint:disable:no-any no-string-literal
 import Canfetti from '../Canfetti';
 
 const mockCtx = {
@@ -12,7 +11,7 @@ const mockCtx = {
   canvas: {
     scrollHeight: 100,
   },
-} as any;
+};
 
 const mockCanvas = {
   getContext: jest.fn(() => mockCtx),
@@ -20,9 +19,9 @@ const mockCanvas = {
 };
 
 describe('Canfetti', () => {
-  let confetti: Canfetti;
-  let getElementSpy: any;
-  let eventListenerSpy: any;
+  let confetti;
+  let getElementSpy;
+  let eventListenerSpy;
 
   beforeAll(() => {
     getElementSpy = jest

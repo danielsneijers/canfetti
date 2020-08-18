@@ -14,8 +14,8 @@ describe(Vector.name, () => {
   });
 
   describe('add', () => {
-    let testVector: Vector;
-    let addVector: Vector;
+    let testVector;
+    let addVector;
 
     beforeEach(() => {
       testVector = new Vector(0, 0);
@@ -36,7 +36,7 @@ describe(Vector.name, () => {
   });
 
   describe('multiply', () => {
-    let testVector: Vector;
+    let testVector;
 
     beforeEach(() => {
       testVector = new Vector(2, 3);
