@@ -1,4 +1,4 @@
-import Canfetti from '../src/Canfetti';
+import Canfetti from '../dist/canfetti';
 
 const confetti = new Canfetti();
 const startButton = document.getElementById('startButton');

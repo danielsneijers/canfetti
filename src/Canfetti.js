@@ -39,10 +39,7 @@ class Canfetti {
   };
 
   startBurst = () => {
-    if (!this.burstEnabled) {
-      window.addEventListener('click', this.addBurstEmitter);
-      this.burstEnabled = true;
-    }
+    window.addEventListener('click', this.addBurstEmitter);
 
     if (!this.isActive) {
       this.isActive = true;
@@ -53,9 +50,11 @@ class Canfetti {
   };
 
   stopBurst = () => {
-    if (this.burstEnabled) {
-      window.removeEventListener('click', this.addBurstEmitter);
-      this.burstEnabled = false;
+    window.removeEventListener('click', this.addBurstEmitter);
+
+    if (!this.isActive) {
+      this.isActive = true;
+      this.render();
     }
 
     return this;
