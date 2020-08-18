@@ -1,10 +1,11 @@
 {
-  "presets": ["env"],
+  "presets": ["@babel/preset-env"],
+  "plugins": [["@babel/plugin-proposal-class-properties", { "loose": true }]],
   "env": {
     "development": {
       "presets": [
         [
-          "env",
+          "@babel/preset-env",
           {
             "modules": false,
             "targets": { "browsers": ["last 2 versions", "> 5%"] }
@@ -14,12 +15,18 @@
     },
     "test": {
       "presets": [
-        ["env", { "targets": { "browsers": ["last 2 versions", "> 5%"] } }]
+        [
+          "@babel/preset-env",
+          { "targets": { "browsers": ["last 2 versions", "> 5%"] } }
+        ]
       ]
     },
     "production": {
       "presets": [
-        ["env", { "targets": { "browsers": ["last 2 versions", "> 5%"] } }]
+        [
+          "@babel/preset-env",
+          { "targets": { "browsers": ["last 2 versions", "> 5%"] } }
+        ]
       ]
     }
   }

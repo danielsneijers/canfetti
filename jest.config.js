@@ -1,7 +1,5 @@
 module.exports = {
-  moduleFileExtensions: ['ts', 'js'],
-  transform: {
-    '^.+\\.tsx?$': 'ts-jest'
-  },
-  testMatch: ['**/__tests__/*.(ts|js)']
+  moduleDirectories: ['node_modules'],
+  moduleFileExtensions: ['js'],
+  coveragePathIgnorePatterns: ['<rootDir>/node_modules/'],
 };

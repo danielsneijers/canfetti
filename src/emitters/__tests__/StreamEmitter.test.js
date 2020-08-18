@@ -12,14 +12,14 @@ const mockCtx = {
     scrollHeight: 100,
     width: 100,
   },
-} as any;
+};
 
 describe('StreamEmitter', () => {
-  let streamEmitter: StreamEmitter;
+  let streamEmitter;
 
   beforeEach(() => {
     streamEmitter = new StreamEmitter(mockCtx);
-    streamEmitter['addNewParticlesToStream'] = jest.fn();
+    streamEmitter.addNewParticlesToStream = jest.fn();
   });
 
   it('adds an initial stream of particles on inti', () => {
@@ -28,30 +28,30 @@ describe('StreamEmitter', () => {
 
   describe('drawConfetti', () => {
     it('adds new particles as long as it should render', () => {
-      expect(streamEmitter['addNewParticlesToStream']).not.toHaveBeenCalled();
+      expect(streamEmitter.addNewParticlesToStream).not.toHaveBeenCalled();
 
       streamEmitter.drawConfetti();
       streamEmitter.drawConfetti();
       streamEmitter.drawConfetti();
       streamEmitter.drawConfetti();
 
-      expect(streamEmitter['addNewParticlesToStream']).toHaveBeenCalledTimes(4);
+      expect(streamEmitter.addNewParticlesToStream).toHaveBeenCalledTimes(4);
     });
 
     it('adds new particles as long as it should render', () => {
-      expect(streamEmitter['addNewParticlesToStream']).not.toHaveBeenCalled();
+      expect(streamEmitter.addNewParticlesToStream).not.toHaveBeenCalled();
 
       streamEmitter.drawConfetti();
       streamEmitter.drawConfetti();
 
-      expect(streamEmitter['addNewParticlesToStream']).toHaveBeenCalledTimes(2);
+      expect(streamEmitter.addNewParticlesToStream).toHaveBeenCalledTimes(2);
 
       streamEmitter.stopDrawing();
       streamEmitter.drawConfetti();
       streamEmitter.drawConfetti();
       streamEmitter.drawConfetti();
 
-      expect(streamEmitter['addNewParticlesToStream']).toHaveBeenCalledTimes(2);
+      expect(streamEmitter.addNewParticlesToStream).toHaveBeenCalledTimes(2);
     });
   });
 });

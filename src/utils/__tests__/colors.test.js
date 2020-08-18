@@ -20,7 +20,9 @@ describe('Color utils', () => {
         expect(colors.includes(color)).toBeTruthy();
       });
 
-      const allTheSameColor = randomColors.every(color => color === randomColors[0]);
+      const allTheSameColor = randomColors.every(
+        (color) => color === randomColors[0],
+      );
 
       expect(allTheSameColor).toBeFalsy();
     });

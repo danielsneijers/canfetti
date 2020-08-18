@@ -2,15 +2,12 @@ import BurstEmitter from './emitters/BurstEmitter';
 import StreamEmitter from './emitters/StreamEmitter';
 
 class Canfetti {
-  private canvas: HTMLCanvasElement;
-  private canvasSize: { width: number; height: number };
-  private ctx: CanvasRenderingContext2D;
-  private emitters: (BurstEmitter | StreamEmitter)[] = [];
-  private isActive: boolean = false;
-
-  constructor({ canvasId = 'canfetti' }: { canvasId?: string } = {}) {
-    this.canvas = document.getElementById(canvasId) as HTMLCanvasElement;
-    this.ctx = this.canvas.getContext('2d') as CanvasRenderingContext2D;
+  constructor({ canvasId = 'canfetti' } = {}) {
+    this.canvas = document.getElementById(canvasId);
+    this.canvasSize = { width: 0, height: 0 };
+    this.ctx = this.canvas.getContext('2d');
+    this.emitters = [];
+    this.isActive = false;
 
     this.setCanvasSize();
     window.addEventListener('resize', this.setCanvasSize);
@@ -18,7 +15,7 @@ class Canfetti {
     return this;
   }
 
-  public setCanvasSize = () => {
+  setCanvasSize = () => {
     const pixelRatio = window.devicePixelRatio;
     const width = window.innerWidth * pixelRatio;
     const height = window.innerHeight * pixelRatio;
@@ -29,7 +26,7 @@ class Canfetti {
     this.ctx.scale(pixelRatio, pixelRatio);
   };
 
-  public startStream = () => {
+  startStream = () => {
     this.emitters.push(new StreamEmitter(this.ctx));
 
     if (!this.isActive) {
@@ -40,7 +37,7 @@ class Canfetti {
     return this;
   };
 
-  public initBurst = () => {
+  initBurst = () => {
     window.addEventListener('click', this.addBurstEmitter);
 
     if (!this.isActive) {
@@ -51,11 +48,11 @@ class Canfetti {
     return this;
   };
 
-  public stopStream = () => {
-    this.emitters.forEach(emitter => emitter.stopDrawing());
+  stopStream = () => {
+    this.emitters.forEach((emitter) => emitter.stopDrawing());
   };
 
-  private addBurstEmitter = ({ clientX, clientY }: MouseEvent) => {
+  addBurstEmitter = ({ clientX, clientY }) => {
     this.emitters.push(new BurstEmitter(this.ctx, clientX, clientY));
 
     if (!this.isActive) {
@@ -64,7 +61,7 @@ class Canfetti {
     }
   };
 
-  private render = () => {
+  render = () => {
     if (this.allEmittersDoneRendering) {
       this.isActive = false;
     }
@@ -79,10 +76,7 @@ class Canfetti {
     }
   };
 
-  private drawEmitterParticles = (
-    emitter: BurstEmitter | StreamEmitter,
-    index: number
-  ) => {
+  drawEmitterParticles = (emitter, index) => {
     if (emitter.isDoneRendering) {
       this.emitters.splice(index, 1);
     } else {
@@ -90,8 +84,8 @@ class Canfetti {
     }
   };
 
-  private get allEmittersDoneRendering() {
-    return this.emitters.every(emitter => emitter.isDoneRendering);
+  get allEmittersDoneRendering() {
+    return this.emitters.every((emitter) => emitter.isDoneRendering);
   }
 }
 

@@ -1,26 +1,27 @@
-import ConfettiParticle from '../ConfettiParticle';
-
 export default class BaseEmitter {
-  public particlesArray: ConfettiParticle[] = [];
-  public particlesAmount: number = 200;
-  public particlesOutViewport: number = 0;
-  public shouldRender: boolean = true;
+  particlesArray = [];
 
-  public get isDoneRendering() {
+  particlesAmount = 200;
+
+  particlesOutViewport = 0;
+
+  shouldRender = true;
+
+  get isDoneRendering() {
     return this.particlesArray.length
       ? this.particlesArray.length === this.particlesOutViewport
       : false;
   }
 
-  public stopDrawing() {
+  stopDrawing() {
     this.shouldRender = false;
   }
 
-  public startDrawing() {
+  startDrawing() {
     this.shouldRender = true;
   }
 
-  public drawConfetti() {
+  drawConfetti() {
     if (this.isDoneRendering) {
       this.particlesArray = [];
       return;
@@ -30,7 +31,7 @@ export default class BaseEmitter {
     this.particlesArray.forEach(this.drawParticleWhenInViewport);
   }
 
-  private drawParticleWhenInViewport = (particle: ConfettiParticle) => {
+  drawParticleWhenInViewport = (particle) => {
     if (!particle.inViewport) {
       this.particlesOutViewport += 1;
     }

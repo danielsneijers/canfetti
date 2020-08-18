@@ -1,7 +1,6 @@
-// tslint:disable:no-any
 import ConfettiParticle from '../ConfettiParticle';
 
-jest.mock('../utils/colors.ts');
+jest.mock('../utils/colors.js');
 
 const mockCtx = {
   save: jest.fn(),
@@ -11,13 +10,13 @@ const mockCtx = {
   fillRect: jest.fn(),
   restore: jest.fn(),
   canvas: {
-    scrollHeight: 100
-  }
-} as any;
+    scrollHeight: 100,
+  },
+};
 
 describe('ConfettiParticle', () => {
-  let particleInViewport: ConfettiParticle;
-  let particleOutViewport: ConfettiParticle;
+  let particleInViewport;
+  let particleOutViewport;
 
   beforeAll(() => {
     global.Math.random = jest.fn(() => 0.6522531586373328);

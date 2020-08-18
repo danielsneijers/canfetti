@@ -1,7 +1,6 @@
 .idea
 .DS_Store
 .vscode
-dist
 coverage
 node_modules
 npm-debug.log

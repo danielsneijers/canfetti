@@ -4,8 +4,8 @@ import BaseEmitter from '../BaseEmitter';
 describe('BaseEmitter', () => {
   const fakeParticle = {};
 
-  let baseEmitter: BaseEmitter;
-  let particlesArray: any[];
+  let baseEmitter;
+  let particlesArray;
 
   beforeEach(() => {
     particlesArray = Array(10)
@@ -13,7 +13,7 @@ describe('BaseEmitter', () => {
       .map(() => fakeParticle);
 
     baseEmitter = new BaseEmitter();
-    baseEmitter.particlesArray = particlesArray as any;
+    baseEmitter.particlesArray = particlesArray;
   });
 
   describe('isDoneRendering', () => {
@@ -36,27 +36,25 @@ describe('BaseEmitter', () => {
 
   describe('drawConfetti', () => {
     beforeEach(() => {
-      baseEmitter['drawParticleWhenInViewport'] = jest.fn();
+      baseEmitter.drawParticleWhenInViewport = jest.fn();
     });
 
     it('does not render if all particles are out of viewport', () => {
       baseEmitter.particlesOutViewport = 10;
 
-      expect(baseEmitter['drawParticleWhenInViewport']).not.toHaveBeenCalled();
+      expect(baseEmitter.drawParticleWhenInViewport).not.toHaveBeenCalled();
 
       baseEmitter.drawConfetti();
 
-      expect(baseEmitter['drawParticleWhenInViewport']).not.toHaveBeenCalled();
+      expect(baseEmitter.drawParticleWhenInViewport).not.toHaveBeenCalled();
     });
 
     it('does render if particles in viewport', () => {
-      expect(baseEmitter['drawParticleWhenInViewport']).not.toHaveBeenCalled();
+      expect(baseEmitter.drawParticleWhenInViewport).not.toHaveBeenCalled();
 
       baseEmitter.drawConfetti();
 
-      expect(baseEmitter['drawParticleWhenInViewport']).toHaveBeenCalledTimes(
-        10,
-      );
+      expect(baseEmitter.drawParticleWhenInViewport).toHaveBeenCalledTimes(10);
     });
   });
 });

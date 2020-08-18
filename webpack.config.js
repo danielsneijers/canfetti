@@ -2,31 +2,31 @@ const { resolve } = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const baseConfig = {
   context: resolve(__dirname, 'src'),
   output: {
     filename: 'bundle.js',
     path: resolve(__dirname, 'dist'),
-    publicPath: '/'
+    publicPath: '/',
   },
   module: {
     rules: [
       {
-        test: /\.ts$/,
-        loader: 'awesome-typescript-loader',
+        test: /\.js$/,
+        loader: 'babel-loader',
         include: [resolve(__dirname, 'src'), resolve(__dirname, 'demo')],
-        exclude: /node-modules/
+        exclude: /node-modules/,
       },
-      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' }
-    ]
+      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
+    ],
   },
   resolve: {
-    extensions: ['.js', '.ts'],
-    modules: ['node_modules']
+    extensions: ['.js'],
+    modules: ['node_modules'],
   },
-  plugins: [new CleanWebpackPlugin('dist')]
+  plugins: [new CleanWebpackPlugin()],
 };
 
 if (process.env.NODE_ENV === 'development') {
@@ -34,7 +34,7 @@ if (process.env.NODE_ENV === 'development') {
     entry: [
       'webpack-dev-server/client?http://localhost:8080',
       'webpack/hot/only-dev-server',
-      '../demo/index.ts'
+      '../demo/index.js',
     ],
     mode: 'development',
     devtool: 'source-map',
@@ -43,7 +43,22 @@ if (process.env.NODE_ENV === 'development') {
       contentBase: resolve(__dirname, 'dist'),
       publicPath: '/',
       historyApiFallback: true,
-      stats: { colors: true }
+      stats: {
+        colors: true,
+        hash: true,
+        version: false,
+        timings: true,
+        assets: true,
+        chunks: false,
+        modules: false,
+        reasons: false,
+        children: true,
+        source: true,
+        errors: true,
+        errorDetails: true,
+        warnings: true,
+        publicPath: false,
+      },
     },
     plugins: baseConfig.plugins.concat([
       new webpack.HotModuleReplacementPlugin(),
@@ -51,15 +66,15 @@ if (process.env.NODE_ENV === 'development') {
         title: 'Canfetti 🎊',
         template: '../demo/template.ejs',
         minify: { useShortDoctype: true },
-        hash: false
-      })
-    ])
+        hash: false,
+      }),
+    ]),
   });
 }
 
 if (process.env.NODE_ENV === 'production') {
   module.exports = Object.assign(baseConfig, {
-    entry: '../src/Canfetti.ts',
+    entry: '../src/Canfetti.js',
     mode: 'production',
     output: {
       path: resolve('./dist'),
@@ -67,7 +82,7 @@ if (process.env.NODE_ENV === 'production') {
       library: 'Canfetti',
       umdNamedDefine: true,
       libraryExport: 'default',
-      libraryTarget: 'umd'
+      libraryTarget: 'umd',
     },
     optimization: {
       minimizer: [
@@ -75,11 +90,11 @@ if (process.env.NODE_ENV === 'production') {
           sourceMap: false,
           uglifyOptions: {
             compress: {
-              inline: false
-            }
-          }
-        })
-      ]
-    }
+              inline: false,
+            },
+          },
+        }),
+      ],
+    },
   });
 }
