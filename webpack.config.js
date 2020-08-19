@@ -97,7 +97,7 @@ if (process.env.NODE_ENV === 'production') {
         }),
       ],
     },
-    plugins: baseConfig.plugins.concat([
+    plugins: [
       new HtmlWebpackPlugin({
         title: 'Canfetti 🎊',
         chunks: ['demo'],
@@ -105,6 +105,6 @@ if (process.env.NODE_ENV === 'production') {
         minify: { useShortDoctype: true },
         hash: false,
       }),
-    ]),
+    ],
   });
 }
