@@ -8,6 +8,7 @@ class Canfetti {
     this.ctx = this.canvas.getContext('2d');
     this.emitters = [];
     this.isActive = false;
+    this.burstEnabled = false;
 
     this.setCanvasSize();
     window.addEventListener('resize', this.setCanvasSize);
@@ -37,8 +38,11 @@ class Canfetti {
     return this;
   };
 
-  initBurst = () => {
-    window.addEventListener('click', this.addBurstEmitter);
+  startBurst = () => {
+    if (!this.burstEnabled) {
+      window.addEventListener('click', this.addBurstEmitter);
+      this.burstEnabled = true;
+    }
 
     if (!this.isActive) {
       this.isActive = true;
@@ -49,11 +53,9 @@ class Canfetti {
   };
 
   stopBurst = () => {
-    window.removeEventListener('click', this.addBurstEmitter);
-
-    if (!this.isActive) {
-      this.isActive = true;
-      this.render();
+    if (this.burstEnabled) {
+      window.removeEventListener('click', this.addBurstEmitter);
+      this.burstEnabled = false;
     }
 
     return this;
