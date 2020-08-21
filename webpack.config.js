@@ -100,7 +100,7 @@ if (process.env.NODE_ENV === 'production') {
     plugins: [
       new HtmlWebpackPlugin({
         title: 'Canfetti 🎊',
-        chunks: ['demo'],
+        chunks: ['canfetti', 'demo'],
         template: '../demo/template.ejs',
         minify: { useShortDoctype: true },
         hash: false,

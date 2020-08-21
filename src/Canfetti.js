@@ -9,10 +9,11 @@ class Canfetti {
     this.emitters = [];
     this.isActive = false;
     this.burstEnabled = false;
+    this.isStreaming = false;
 
     this.setCanvasSize();
     window.addEventListener('resize', this.setCanvasSize);
-
+    window.emitters = this.emitters;
     return this;
   }
 
@@ -27,8 +28,14 @@ class Canfetti {
     this.ctx.scale(pixelRatio, pixelRatio);
   };
 
+  toggleStream = () => {
+    if (this.isStreaming) this.stopStream();
+    else this.startStream();
+  };
+
   startStream = () => {
     this.emitters.push(new StreamEmitter(this.ctx));
+    this.isStreaming = true;
 
     if (!this.isActive) {
       this.isActive = true;
@@ -36,6 +43,11 @@ class Canfetti {
     }
 
     return this;
+  };
+
+  stopStream = () => {
+    this.emitters.forEach((emitter) => emitter.stopDrawing());
+    this.isStreaming = false;
   };
 
   startBurst = () => {
@@ -58,10 +70,6 @@ class Canfetti {
     }
 
     return this;
-  };
-
-  stopStream = () => {
-    this.emitters.forEach((emitter) => emitter.stopDrawing());
   };
 
   addBurstEmitter = ({ clientX, clientY }) => {
