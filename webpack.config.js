@@ -72,11 +72,14 @@ if (process.env.NODE_ENV === 'development') {
 
 if (process.env.NODE_ENV === 'production') {
   module.exports = Object.assign(baseConfig, {
-    entry: '../src/Canfetti.js',
+    entry: {
+      canfetti: '../src/Canfetti.js',
+      demo: '../demo/index.js',
+    },
     mode: 'production',
     output: {
       path: resolve('./dist'),
-      filename: 'canfetti.js',
+      filename: '[name].js',
       library: 'Canfetti',
       umdNamedDefine: true,
       libraryExport: 'default',
@@ -94,5 +97,14 @@ if (process.env.NODE_ENV === 'production') {
         }),
       ],
     },
+    plugins: [
+      new HtmlWebpackPlugin({
+        title: 'Canfetti 🎊',
+        chunks: ['canfetti', 'demo'],
+        template: '../demo/template.ejs',
+        minify: { useShortDoctype: true },
+        hash: false,
+      }),
+    ],
   });
 }
