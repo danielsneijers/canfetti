@@ -36,7 +36,7 @@ const stopPropagation = (e) => {
 
 startButton.addEventListener('click', (e) => {
   stopPropagation(e);
-  confetti.toggleStream();
+  confetti.startStream();
   toggleButtons();
 });
 
